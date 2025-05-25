@@ -23,4 +23,21 @@ class Block {
         Data = ${this.data}
         `
     }
+
+    // Criação do Bloco Genesis, que é o primeiro bloco da blockchain.
+    static genesis(){
+        return new this('Genesis Time', '-----', 'f1r57-ha5h', []);
+    }
+
+    // Criação do Bloco que sera adicionado a blockchain.
+    static mineBlock(lastBlock, data){
+        const timestamp = Date.now();
+        const lastHash = lastBlock.hash;
+        const hash = 'a fazer hash';
+
+        return new this(timestamp, lastHash, hash, data);
+    }
 }
+
+
+module.exports = Block;
