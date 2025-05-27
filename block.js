@@ -1,3 +1,5 @@
+const SHA256 = require('crypto-js/sha256');
+
 /*
 Criação da Classe Bloco onde se armazena o timeStamp, lastHash, hash, data.
     *Timestamp = Momento em que o bloco foi criado
@@ -33,11 +35,18 @@ class Block {
     static mineBlock(lastBlock, data){
         const timestamp = Date.now();
         const lastHash = lastBlock.hash;
-        const hash = 'a fazer hash';
+        const hash = Block.hash(timestamp, lastHash, data);
 
         return new this(timestamp, lastHash, hash, data);
     }
-}
 
+    // SHA - 256. Algorimot usado para fazer a criptografia do hash.
+    static hash(timestamp, lastHash, data){
+        return SHA256(`${timestamp}${lastHash}${data}`).toString();
+
+    }
+
+
+}
 
 module.exports = Block;
