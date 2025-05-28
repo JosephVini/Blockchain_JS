@@ -10,14 +10,14 @@ toString() é uma função que retorna uma string com os dados do bloco.
 
 */
 class Block {
-    constructor(timestamp, lastHash, hash, data){
+    constructor(timestamp, lastHash, hash, data) {
         this.timestamp = timestamp
         this.lastHash = lastHash
         this.hash = hash
         this.data = data
     }
 
-    toString(){
+    toString() {
         return `Block=
         Timestamp = ${this.timestamp}
         Last Hash = ${this.lastHash}
@@ -27,12 +27,12 @@ class Block {
     }
 
     // Criação do Bloco Genesis, que é o primeiro bloco da blockchain.
-    static genesis(){
+    static genesis() {
         return new this('Genesis Time', '-----', 'f1r57-ha5h', []);
     }
 
     // Criação do Bloco que sera adicionado a blockchain.
-    static mineBlock(lastBlock, data){
+    static mineBlock(lastBlock, data) {
         const timestamp = Date.now();
         const lastHash = lastBlock.hash;
         const hash = Block.hash(timestamp, lastHash, data);
@@ -41,7 +41,7 @@ class Block {
     }
 
     // SHA - 256. Algorimot usado para fazer a criptografia do hash.
-    static hash(timestamp, lastHash, data){
+    static hash(timestamp, lastHash, data) {
         return SHA256(`${timestamp}${lastHash}${data}`).toString();
 
     }
