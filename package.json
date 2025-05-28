@@ -1,5 +1,12 @@
 {
   "dependencies": {
     "crypto-js": "^4.2.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "scripts": {
+    "test": "jest --watchAll"
   }
+  
 }
