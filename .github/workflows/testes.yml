@@ -2,7 +2,7 @@ name: Testes com Jest
 
 on:
   push:
-    branches: [main]
+    branches: [main, teste]
   pull_request:
     branches: [main]
 
