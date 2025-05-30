@@ -4,9 +4,11 @@ const Blockchain = require('../blockchain')
 describe('Blockchain', () => {
 
     let corrente;
+    let bc;
 
     beforeEach(() => {
         corrente = new Blockchain();
+        bc = new Blockchain();
     })
 
     it('starts whith genesis block', () => {
@@ -19,4 +21,21 @@ describe('Blockchain', () => {
 
         expect(corrente.chain[corrente.chain.length - 1].data).toEqual(data);
     });
+
+    it('validates a valid chain', () => {
+        bc.addBlock('500U$');
+        expect(corrente.isValidChain(bc.chain)).toBe(true);
+    })
+
+    it('invalidates a chain with a corrupt genesis block', () => {
+        bc.chain[0].data = '0U$';
+        expect(corrente.isValidChain(bc.chain)).toBe(false);
+    })
+
+    it('invalidates a corrupt chain', () => {
+        bc.addBlock('200U$')
+        bc.chain[1].data = '0U$'
+
+        expect(corrente.isValidChain(bc.chain)).toBe(false);
+    })
 })
