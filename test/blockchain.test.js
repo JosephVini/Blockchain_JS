@@ -38,4 +38,18 @@ describe('Blockchain', () => {
 
         expect(corrente.isValidChain(bc.chain)).toBe(false);
     })
+
+    it('replaces the chain with a valid chain', () => {
+        bc.addBlock('600U$')
+        corrente.replaceChain(bc.chain)
+
+        expect(corrente.chain).toEqual(bc.chain);
+    })
+
+    it('Does not replace the chain with one of less or equal length', () => {
+        corrente.addBlock('200U$');
+        corrente.replaceChain(bc.chain);
+
+        expect(corrente.chain).not.toEqual(bc.chain);
+    })
 })
