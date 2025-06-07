@@ -6,14 +6,23 @@ const HTTP_PORT = process.env.HTTP_PORT || 3001
 HTTP_PORT: 3002 npm run dev
 muda a porta do servidor
 */
-
 const app = express()
 const bc = new Blockchain()
 
-// requisição de toda a cadeeia de blocos
-app.get('/blocks', (req, res) =>{
+app.use(express.json());
+
+// requisição de toda a cadeia de blocos
+app.get('/blocks', (req, res) => {
     res.json(bc.chain)
 });
+
+// requisição para adicionar blocos
+app.post('/mine', (req, res) => {
+    const block = bc.addBlock(req.body.data)
+    console.log(`New block added: ${block.toString()}`)
+
+    res.redirect('/blocks');
+})
 
 // escutando na determinada HTTP_PORT
 app.listen(HTTP_PORT, () => {
