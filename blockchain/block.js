@@ -1,4 +1,5 @@
 const SHA256 = require('crypto-js/sha256');
+const DIFFICULTY = 4
 
 /*
 Criação da Classe Bloco onde se armazena o timeStamp, lastHash, hash, data.
@@ -10,45 +11,53 @@ toString() é uma função que retorna uma string com os dados do bloco.
 
 */
 class Block {
-    constructor(timestamp, lastHash, hash, data) {
+    constructor(timestamp, lastHash, hash, data, nonce) {
         this.timestamp = timestamp
         this.lastHash = lastHash
         this.hash = hash
         this.data = data
+        this.nonce = nonce
     }
 
     toString() {
         return `Block=
         Timestamp = ${this.timestamp}
-        Last Hash = ${this.lastHash}
-        Hash = ${this.hash}
+        Last Hash = ${this.lastHash.substring(0, 10)}
+        Hash = ${this.hash.substring(0, 10)}
+        Nonce = ${this.nonce}
         Data = ${this.data}
         `
     }
 
     // Criação do Bloco Genesis, que é o primeiro bloco da blockchain.
     static genesis() {
-        return new this('Genesis Time', '-----', 'f1r57-ha5h', []);
+        return new this('Genesis Time', '-----', 'f1r57-ha5h', [], 0);
     }
 
     // Criação do Bloco que sera adicionado a blockchain.
     static mineBlock(lastBlock, data) {
-        const timestamp = Date.now();
+        let hash, timestamp;
         const lastHash = lastBlock.hash;
-        const hash = Block.hash(timestamp, lastHash, data);
+        let nonce = 0;
 
-        return new this(timestamp, lastHash, hash, data);
+        do {
+            nonce++;
+            timestamp = Date.now()
+            hash = Block.hash(timestamp, lastHash, data, nonce);
+        } while (hash.substring(0, DIFFICULTY) !== '0'.repeat(DIFFICULTY));
+
+        return new this(timestamp, lastHash, hash, data, nonce);
     }
 
     // SHA - 256. Algorimot usado para fazer a criptografia do hash.
-    static hash(timestamp, lastHash, data) {
-        return SHA256(`${timestamp}${lastHash}${data}`).toString();
+    static hash(timestamp, lastHash, data, nonce) {
+        return SHA256(`${timestamp}${lastHash}${data}${nonce}`).toString();
 
     }
 
     static blockHash(block) {
-        const { timestamp, lastHash, data } = block
-        return Block.hash(timestamp, lastHash, data)
+        const { timestamp, lastHash, data, nonce } = block
+        return Block.hash(timestamp, lastHash, data, nonce)
     }
 }
 
