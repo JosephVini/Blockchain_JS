@@ -14,6 +14,8 @@ class Wallet {
       balance  : ${this.balance}
     `;
   }
+
+  
 }
 
 module.exports = Wallet;
