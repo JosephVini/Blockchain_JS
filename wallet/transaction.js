@@ -7,7 +7,17 @@ class Transaction {
     this.outputs = [];
   }
 
-  static newTransaction(){
-    
+  static newTransaction(senderWallet, recipient, amount) {
+    const transaction = new this();
+
+    if (amount > senderWallet.balance) {
+      console.log(`Amount: ${amount} exceeds balance`)
+      return
+    }
+
+    transaction.outputs.push(...[{ amount: senderWallet.balance - amount, adress: senderWallet.publicKey }, { amount, adress: recipient }])
+    return transaction
   }
 }
+
+module.exports = Transaction 
