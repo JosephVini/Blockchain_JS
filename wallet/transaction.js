@@ -1,4 +1,4 @@
-const ChainUtil = require("../chain-util");
+const ChainUtil = require("../chain-util/chain-util");
 
 class Transaction {
   constructor() {
@@ -15,7 +15,7 @@ class Transaction {
       return
     }
 
-    transaction.outputs.push(...[{ amount: senderWallet.balance - amount, adress: senderWallet.publicKey }, { amount, adress: recipient }])
+    transaction.outputs.push(...[{ amount: senderWallet.balance - amount, address: senderWallet.publicKey }, { amount, adress: recipient }])
     return transaction
   }
 }
