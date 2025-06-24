@@ -20,4 +20,15 @@ describe('Transaction', () => {
         expect(transaction.outputs.find(output => output.address == wallet.address).amount).toEqual(amount)
     })
 
+    describe('transacting with an amount exceeds the balance', () => {
+        beforeEach(() => {
+            amount = 50000
+            transaction = Transaction.newTransaction(wallet, recipient, amount)
+        })
+
+        it('does not create the transaction', () => {
+            expect(transaction).toEqual(undefined)
+        })
+    })
+
 })
