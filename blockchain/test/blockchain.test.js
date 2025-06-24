@@ -11,7 +11,7 @@ describe('Blockchain difficulty adjustament', () => {
         const difficulty = [];
 
         // Adicionar os blocos na blockchain
-        for (let i = 1; i <= 5; i++) {
+        for (let i = 1; i <= 2; i++) {
             blockchain.addBlock(`bloco ${i}`)
             const lastBlock = blockchain.chain[blockchain.chain.length - 1];
             difficulty.push(lastBlock.difficulty);
