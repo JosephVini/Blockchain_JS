@@ -15,7 +15,10 @@ class Wallet {
     `;
   }
 
-  
+  sign(dataHash) {
+    return this.keyPair.sign(dataHash)
+  }
+
 }
 
 module.exports = Wallet;
