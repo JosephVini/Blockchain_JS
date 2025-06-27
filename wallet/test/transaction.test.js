@@ -17,7 +17,7 @@ describe('Transaction', () => {
     })
 
     it('outputs `amount` added to the recipient', () => {
-        expect(transaction.outputs.find(output => output.address == wallet.address).amount).toEqual(amount)
+        expect(transaction.outputs.find(output => output.address == recipient).amount).toEqual(amount)
     })
 
     it('input the balance of the wallet', () => {
