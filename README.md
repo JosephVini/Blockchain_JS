@@ -94,7 +94,7 @@ Inclui testes para:
 
 ## 🙋‍♂️ Autor
 
-Desenvolvido por [**Joseph Vinicius (JosephVini)**](https://github.com/JosephVini)
+Desenvolvido por [**José Vinicius (JosephVini)**](https://github.com/JosephVini)
 
 ---
 
