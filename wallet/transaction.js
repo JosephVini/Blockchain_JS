@@ -2,7 +2,7 @@ const ChainUtil = require("../chain-util/chain-util");
 
 class Transaction {
   constructor() {
-    this.id = ChainUtil.id;
+    this.id = ChainUtil.id();
     this.input = null;
     this.outputs = [];
   }
