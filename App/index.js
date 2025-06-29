@@ -11,9 +11,9 @@ muda a porta do servidor
 */
 const app = express()
 const bc = new Blockchain()
-const p2pServer = new P2pServer(bc, tp);
 const tp = new TransactionPool();
 const wallet = new Wallet()
+const p2pServer = new P2pServer(bc, tp);
 
 app.use(express.json());
 
@@ -32,14 +32,15 @@ app.post('/mine', (req, res) => {
     res.redirect('/blocks');
 })
 
-app.get('/transaction', (req, res) => {
-    res.json(tp.transaction)
+app.get('/transactions', (req, res) => {
+    res.json(tp.transactions)
 })
 
 app.post('/transact', (req, res) => {
     const { recipient, amount } = req.body
     const transaction = wallet.createTransaction(recipient, amount, tp)
-    res.redirect('/transaction')
+    p2pServer.broadcastTransaction(transaction)
+    res.redirect('/transactions')
 })
 
 // escutando na determinada HTTP_PORT
