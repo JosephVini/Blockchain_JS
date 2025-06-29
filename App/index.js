@@ -11,7 +11,7 @@ muda a porta do servidor
 */
 const app = express()
 const bc = new Blockchain()
-const p2pServer = new P2pServer(bc);
+const p2pServer = new P2pServer(bc, tp);
 const tp = new TransactionPool();
 const wallet = new Wallet()
 
