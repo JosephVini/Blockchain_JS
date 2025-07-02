@@ -4,6 +4,7 @@ const HTTP_PORT = process.env.HTTP_PORT || 3001
 const P2pServer = require('./p2p-server')
 const TransactionPool = require('../wallet/transaction-pool')
 const Wallet = require('../wallet/index')
+const Miner = require('./Miner')
 
 /*
 HTTP_PORT: 3002 npm run dev
@@ -14,6 +15,7 @@ const bc = new Blockchain()
 const tp = new TransactionPool();
 const wallet = new Wallet()
 const p2pServer = new P2pServer(bc, tp);
+const miner = new Miner(bc, tp, wallet, p2pServer)
 
 app.use(express.json());
 
@@ -45,6 +47,12 @@ app.post('/transact', (req, res) => {
 
 app.get('/public-key', (req, res) => {
     res.json({ publicKey: wallet.publicKey })
+})
+
+app.get('/mine-transactions', (req, res) => {
+    const block = miner.mine()
+    console.log(`New block added: ${block.toString()}`)
+    res.redirect('/blocks')
 })
 
 // escutando na determinada HTTP_PORT
