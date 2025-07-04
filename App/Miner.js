@@ -13,10 +13,12 @@ class Miner {
         const validTransaction = this.transactionPool.validTransactions()
         validTransaction.push(Transaction.rewardTransaction(this.wallet, Wallet.blockchainWallet()))
         const block = this.blockchain.addBlock(validTransaction)
-        this.p2pServer.syncChains();
+        this.p2pServer.syncChain();
         this.transactionPool.clear()
-        
+        this.p2pServer.broadcastClearTransactions()
+
+        return block
     }
 }
 
-module.exports = { Miner }
+module.exports = Miner
